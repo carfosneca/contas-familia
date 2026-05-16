@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Contas">
+<meta name="theme-color" content="#1c1c1e">
+<title>Contas Casal</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1c1c1e; overscroll-behavior: none; }
+.app { max-width: 430px; margin: 0 auto; background: #f5f5f7; min-height: 100vh; padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+.header { background: #fff; padding: calc(52px + env(safe-area-inset-top)) 16px 16px; border-bottom: 0.5px solid #e5e5ea; position: sticky; top: 0; z-index: 50; }
+.header h1 { font-size: 20px; font-weight: 600; color: #1c1c1e; }
+.header p { font-size: 13px; color: #8e8e93; margin-top: 2px; }
+.month-tabs { display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; background: #fff; border-bottom: 0.5px solid #e5e5ea; -webkit-overflow-scrolling: touch; position: sticky; top: 88px; z-index: 40; }
+.month-tabs::-webkit-scrollbar { display: none; }
+.month-tab { flex-shrink: 0; padding: 7px 16px; border-radius: 20px; font-size: 14px; border: 1px solid #e5e5ea; background: #fff; color: #8e8e93; cursor: pointer; font-weight: 500; transition: all 0.15s; }
+.month-tab.active { background: #1c1c1e; color: #fff; border-color: #1c1c1e; }
+.section { padding: 16px 16px 0; }
+.section-title { font-size: 12px; font-weight: 600; color: #8e8e93; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+.card { background: #fff; border-radius: 16px; border: 0.5px solid #e5e5ea; overflow: hidden; margin-bottom: 12px; }
+.card-pad { padding: 16px; }
+.saldo-label { font-size: 13px; color: #8e8e93; margin-bottom: 4px; }
+.saldo-valor { font-size: 34px; font-weight: 700; letter-spacing: -1px; }
+.saldo-valor.positivo { color: #30d158; }
+.saldo-valor.negativo { color: #ff3b30; }
+.saldo-valor.neutro { color: #1c1c1e; }
+.saldo-sub { font-size: 13px; color: #8e8e93; margin-top: 8px; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.stat-card { background: #fff; border-radius: 16px; border: 0.5px solid #e5e5ea; padding: 14px; }
+.stat-label { font-size: 12px; color: #8e8e93; margin-bottom: 4px; }
+.stat-value { font-size: 18px; font-weight: 600; color: #1c1c1e; }
+.stat-sub { font-size: 11px; color: #aeaeb2; margin-top: 2px; }
+.pessoa-row { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 0.5px solid #f2f2f7; }
+.pessoa-row:last-child { border-bottom: none; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; flex-shrink: 0; }
+.avatar.carla { background: #e8faf3; color: #0a8f5c; }
+.avatar.matheus { background: #e8f0fc; color: #1a5dc8; }
+.pessoa-info { flex: 1; min-width: 0; }
+.pessoa-nome { font-size: 15px; font-weight: 600; color: #1c1c1e; }
+.pessoa-detalhe { font-size: 12px; color: #8e8e93; margin-top: 1px; }
+.pessoa-valor { text-align: right; flex-shrink: 0; }
+.pessoa-pagou { font-size: 15px; font-weight: 600; color: #1c1c1e; }
+.pessoa-saldo { font-size: 12px; margin-top: 2px; font-weight: 500; }
+.pessoa-saldo.positivo { color: #30d158; }
+.pessoa-saldo.negativo { color: #ff3b30; }
+.cat-row { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 0.5px solid #f2f2f7; }
+.cat-row:last-child { border-bottom: none; }
+.cat-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.cat-info { flex: 1; min-width: 0; }
+.cat-nome { font-size: 13px; font-weight: 500; color: #1c1c1e; }
+.cat-bar-wrap { height: 3px; background: #f2f2f7; border-radius: 2px; margin-top: 5px; }
+.cat-bar { height: 3px; border-radius: 2px; transition: width 0.4s ease; }
+.cat-right { text-align: right; flex-shrink: 0; }
+.cat-valor { font-size: 13px; font-weight: 600; color: #1c1c1e; }
+.cat-pct { font-size: 11px; color: #8e8e93; margin-top: 2px; }
+.fixo-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 0.5px solid #f2f2f7; }
+.fixo-row:last-child { border-bottom: none; }
+.fixo-nome { font-size: 14px; font-weight: 500; color: #1c1c1e; }
+.fixo-pagante { font-size: 12px; color: #8e8e93; margin-top: 2px; }
+.fixo-valor { font-size: 14px; font-weight: 600; color: #1c1c1e; }
+.acum-card { background: #fff; border-radius: 16px; border: 0.5px solid #e5e5ea; padding: 14px 16px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; active: scale(0.98); }
+.acum-card:active { opacity: 0.7; }
+.acum-mes { font-size: 15px; font-weight: 600; color: #1c1c1e; }
+.acum-sub { font-size: 12px; color: #8e8e93; margin-top: 2px; }
+.acum-val { font-size: 14px; font-weight: 600; }
+.acum-val.positivo { color: #30d158; }
+.acum-val.negativo { color: #ff3b30; }
+.hist-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 0.5px solid #f2f2f7; cursor: pointer; }
+.hist-row:last-child { border-bottom: none; }
+.hist-row:active { background: #f9f9f9; }
+.hist-mes { font-size: 15px; font-weight: 600; color: #1c1c1e; }
+.hist-total { font-size: 12px; color: #8e8e93; margin-top: 2px; }
+.hist-saldo { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.hist-saldo.positivo { color: #30d158; }
+.hist-saldo.negativo { color: #ff3b30; }
+.nav-bar { position: fixed; bottom: 0; left: 0; right: 0; max-width: 430px; margin: 0 auto; background: rgba(255,255,255,0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 0.5px solid #e5e5ea; display: flex; padding-bottom: env(safe-area-inset-bottom); z-index: 100; }
+.nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 10px 4px 8px; cursor: pointer; gap: 3px; }
+.nav-item i { font-size: 24px; color: #aeaeb2; transition: color 0.15s; }
+.nav-item span { font-size: 10px; color: #aeaeb2; font-weight: 500; }
+.nav-item.active i { color: #1c1c1e; }
+.nav-item.active span { color: #1c1c1e; }
+.page { display: none; }
+.page.active { display: block; }
+.upload-area { text-align: center; padding: 48px 24px 24px; }
+.upload-area i { font-size: 60px; color: #aeaeb2; }
+.upload-area h2 { font-size: 20px; font-weight: 600; margin-top: 20px; color: #1c1c1e; }
+.upload-area p { font-size: 14px; color: #8e8e93; margin-top: 10px; line-height: 1.6; }
+.btn-primary { display: block; width: 100%; padding: 16px; background: #1c1c1e; color: #fff; border: none; border-radius: 14px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 24px; text-align: center; text-decoration: none; }
+.btn-primary:active { opacity: 0.8; }
+.step-row { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 0.5px solid #f2f2f7; }
+.step-row:last-child { border-bottom: none; }
+.step-num { width: 32px; height: 32px; border-radius: 50%; background: #f2f2f7; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; color: #1c1c1e; }
+.step-title { font-size: 14px; font-weight: 600; color: #1c1c1e; }
+.step-desc { font-size: 13px; color: #8e8e93; margin-top: 3px; line-height: 1.5; }
+.legend { display: flex; gap: 16px; padding: 0 0 8px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #8e8e93; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+.install-banner { background: #1c1c1e; color: #fff; padding: 12px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.install-banner p { font-size: 13px; flex: 1; }
+.install-banner span { font-size: 12px; background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 20px; }
+
+@media (prefers-color-scheme: dark) {
+  body { background: #000; color: #fff; }
+  .app { background: #000; }
+  .header, .month-tabs { background: #1c1c1e; border-color: #2c2c2e; }
+  .card, .stat-card, .acum-card { background: #1c1c1e; border-color: #2c2c2e; }
+  .month-tab { background: #1c1c1e; border-color: #3a3a3c; color: #8e8e93; }
+  .month-tab.active { background: #fff; color: #000; border-color: #fff; }
+  .header h1, .pessoa-nome, .cat-nome, .fixo-nome, .fixo-valor, .cat-valor, .pessoa-pagou, .stat-value, .saldo-valor.neutro, .acum-mes, .hist-mes, .step-title, .step-num { color: #fff; }
+  .pessoa-row, .cat-row, .fixo-row, .hist-row, .step-row { border-color: #2c2c2e; }
+  .cat-bar-wrap, .step-num { background: #2c2c2e; }
+  .hist-row:active { background: #2c2c2e; }
+  .nav-bar { background: rgba(28,28,30,0.94); border-color: #2c2c2e; }
+  .nav-item.active i, .nav-item.active span { color: #fff; }
+  .btn-primary { background: #fff; color: #000; }
+  .saldo-valor.neutro { color: #fff; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="header">
+  <h1>Contas do casal</h1>
+  <p>Carla &amp; Matheus</p>
+</div>
+
+<div class="month-tabs">
+  <div class="month-tab" onclick="setMonth('jan',this)">Jan/26</div>
+  <div class="month-tab active" onclick="setMonth('fev',this)">Fev/26</div>
+  <div class="month-tab" onclick="setMonth('mar',this)">Mar/26</div>
+  <div class="month-tab" onclick="setMonth('abr',this)">Abr/26</div>
+</div>
+
+<div id="page-resumo" class="page active">
+  <div class="section" style="margin-top:12px;">
+    <div class="card card-pad">
+      <div class="saldo-label" id="saldo-label">Carla deve ao Matheus</div>
+      <div class="saldo-valor negativo" id="saldo-valor">R$ 4.969</div>
+      <div class="saldo-sub" id="saldo-sub">Saldo acumulado: Matheus deve R$ 669</div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total do mes</div>
+        <div class="stat-value" id="stat-total">R$ 34.694</div>
+        <div class="stat-sub" id="stat-fixo">Fixo: R$ 17.193</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Variavel</div>
+        <div class="stat-value" id="stat-var">R$ 17.501</div>
+        <div class="stat-sub">Cartao + outros</div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Quem pagou</div>
+    <div class="card">
+      <div class="pessoa-row">
+        <div class="avatar carla">C</div>
+        <div class="pessoa-info">
+          <div class="pessoa-nome">Carla</div>
+          <div class="pessoa-detalhe" id="carla-detalhe">deveria pagar R$ 15.628</div>
+        </div>
+        <div class="pessoa-valor">
+          <div class="pessoa-pagou" id="carla-pagou">R$ 10.659</div>
+          <div class="pessoa-saldo negativo" id="carla-saldo">- R$ 4.969</div>
+        </div>
+      </div>
+      <div class="pessoa-row">
+        <div class="avatar matheus">M</div>
+        <div class="pessoa-info">
+          <div class="pessoa-nome">Matheus</div>
+          <div class="pessoa-detalhe" id="matheus-detalhe">deveria pagar R$ 19.067</div>
+        </div>
+        <div class="pessoa-valor">
+          <div class="pessoa-pagou" id="matheus-pagou">R$ 24.035</div>
+          <div class="pessoa-saldo positivo" id="matheus-saldo">+ R$ 4.969</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Categorias</div>
+    <div class="card" id="categorias-list"></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Fixos do mes</div>
+    <div class="card" id="fixos-list"></div>
+  </div>
+</div>
+
+<div id="page-historico" class="page">
+  <div class="section" style="margin-top:12px;">
+    <div class="section-title">Saldo acumulado</div>
+    <div id="acum-list"></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Gastos por mes</div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#b5d4f4"></div>Fixo</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#378add"></div>Variavel</div>
+    </div>
+    <div class="card" style="padding:12px;">
+      <div style="position:relative;width:100%;height:200px;">
+        <canvas id="histChart" role="img" aria-label="Gastos mensais jan-abr 2026">Gastos: Jan 112k, Fev 34k, Mar 31k, Abr 49k</canvas>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="margin-top:4px;">
+    <div class="section-title">Detalhe por mes</div>
+    <div class="card" id="historico-list"></div>
+  </div>
+</div>
+
+<div id="page-upload" class="page">
+  <div class="upload-area">
+    <i class="ti ti-file-upload"></i>
+    <h2>Adicionar nova fatura</h2>
+    <p>Abra o Claude no celular, anexe o PDF da fatura do Itau e peca para atualizar o app.</p>
+    <a href="https://claude.ai" class="btn-primary">Abrir Claude</a>
+  </div>
+  <div class="section">
+    <div class="section-title">Como funciona</div>
+    <div class="card" style="padding:4px 16px;">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div><div class="step-title">Baixe a fatura do Itau</div><div class="step-desc">PDF mensal do app ou site do Itau Personnalite</div></div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div><div class="step-title">Anexe no Claude</div><div class="step-desc">Claude le, categoriza e calcula tudo automaticamente</div></div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div><div class="step-title">Revise rapidinho</div><div class="step-desc">Corrija itens marcados como revisar se necessario</div></div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">4</div>
+        <div><div class="step-title">App atualizado!</div><div class="step-desc">Saldo calculado e historico salvo automaticamente</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="nav-bar">
+  <div class="nav-item active" onclick="setPage('resumo',this)">
+    <i class="ti ti-home"></i><span>Resumo</span>
+  </div>
+  <div class="nav-item" onclick="setPage('historico',this)">
+    <i class="ti ti-chart-bar"></i><span>Historico</span>
+  </div>
+  <div class="nav-item" onclick="setPage('upload',this)">
+    <i class="ti ti-circle-plus"></i><span>Fatura</span>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/contas-familia/sw.js').catch(e => console.log('SW:', e));
+  });
+}
+
+const dados = {
+  jan:{total:112413,fixoTotal:16542,varTotal:95871,carlaPagou:33053,carlaDeve:54552,matheusPagou:79360,matheusDeve:57861,saldoCarla:-21499,saldoAcum:0,
+    cats:[{n:'Utilidades Casa',v:77169,ic:'ti-home',c:'#378ADD'},{n:'Presentes',v:5279,ic:'ti-gift',c:'#D4537E'},{n:'Eventos/Jantares',v:3287,ic:'ti-star',c:'#BA7517'},{n:'Transporte',v:3207,ic:'ti-car',c:'#888780'},{n:'Restaurante/Bar',v:1911,ic:'ti-bowl',c:'#D85A30'},{n:'Mercado',v:1670,ic:'ti-shopping-cart',c:'#1D9E75'}],
+    fixos:[{n:'Financiamento',p:'Matheus',v:13704},{n:'Condominio',p:'Carla',v:1606},{n:'Internet',p:'Carla',v:150},{n:'Energia',p:'Carla',v:229},{n:'Gas',p:'Carla',v:63},{n:'Faxineira',p:'Carla',v:600},{n:'Seguro carro',p:'Carla',v:190}]},
+  fev:{total:34694,fixoTotal:17193,varTotal:17501,carlaPagou:10659,carlaDeve:15628,matheusPagou:24035,matheusDeve:19067,saldoCarla:-4969,saldoAcum:-669,
+    cats:[{n:'Utilidades Casa',v:8684,ic:'ti-home',c:'#378ADD'},{n:'Mercado',v:2015,ic:'ti-shopping-cart',c:'#1D9E75'},{n:'Saude',v:1503,ic:'ti-heart',c:'#E24B4A'},{n:'Transporte',v:1287,ic:'ti-car',c:'#888780'},{n:'Restaurante/Bar',v:1298,ic:'ti-bowl',c:'#D85A30'},{n:'Outros',v:1157,ic:'ti-dots',c:'#888780'}],
+    fixos:[{n:'Financiamento',p:'Matheus',v:13704},{n:'Condominio',p:'Carla',v:1606},{n:'IPTU',p:'Carla',v:612},{n:'Internet',p:'Carla',v:150},{n:'Energia',p:'Carla',v:159},{n:'Gas',p:'Carla',v:172},{n:'Faxineira',p:'Carla',v:600},{n:'Seguro carro',p:'Carla',v:190}]},
+  mar:{total:31816,fixoTotal:17483,varTotal:14333,carlaPagou:10017,carlaDeve:14160,matheusPagou:21799,matheusDeve:17656,saldoCarla:-4143,saldoAcum:0,
+    cats:[{n:'Utilidades Casa',v:7440,ic:'ti-home',c:'#378ADD'},{n:'Restaurante/Bar',v:2011,ic:'ti-bowl',c:'#D85A30'},{n:'Mercado',v:2158,ic:'ti-shopping-cart',c:'#1D9E75'},{n:'Outros',v:1441,ic:'ti-dots',c:'#888780'},{n:'Transporte',v:867,ic:'ti-car',c:'#888780'},{n:'Saude',v:210,ic:'ti-heart',c:'#E24B4A'}],
+    fixos:[{n:'Financiamento',p:'Matheus',v:13692},{n:'Condominio',p:'Carla',v:1606},{n:'IPTU',p:'Carla',v:612},{n:'Internet',p:'Carla',v:150},{n:'Energia',p:'Carla',v:524},{n:'Gas',p:'Carla',v:109},{n:'Faxineira',p:'Carla',v:600},{n:'Seguro carro',p:'Carla',v:190}]},
+  abr:{total:49602,fixoTotal:17302,varTotal:32300,carlaPagou:23125,carlaDeve:23071,matheusPagou:26477,matheusDeve:26531,saldoCarla:54,saldoAcum:54,
+    cats:[{n:'Utilidades Casa',v:18999,ic:'ti-home',c:'#378ADD'},{n:'Viagem',v:5748,ic:'ti-plane',c:'#534AB7'},{n:'Mercado',v:2519,ic:'ti-shopping-cart',c:'#1D9E75'},{n:'Outros',v:2414,ic:'ti-dots',c:'#888780'},{n:'Transporte',v:1170,ic:'ti-car',c:'#888780'},{n:'Restaurante/Bar',v:884,ic:'ti-bowl',c:'#D85A30'}],
+    fixos:[{n:'Financiamento',p:'Matheus',v:13690},{n:'Condominio',p:'Carla',v:1606},{n:'IPTU',p:'Carla',v:612},{n:'Internet',p:'Carla',v:150},{n:'Energia',p:'Carla',v:315},{n:'Gas',p:'Carla',v:139},{n:'Faxineira',p:'Carla',v:600},{n:'Seguro carro',p:'Carla',v:190}]}
+};
+
+const meses=['jan','fev','mar','abr'];
+const nomeMes={jan:'Janeiro/26',fev:'Fevereiro/26',mar:'Marco/26',abr:'Abril/26'};
+const fmt=v=>'R$ '+Math.abs(Math.round(v)).toLocaleString('pt-BR');
+let mesSel='fev',chartInst=null;
+
+function setMonth(m,el){
+  mesSel=m;
+  document.querySelectorAll('.month-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderResumo();
+}
+
+function renderResumo(){
+  const d=dados[mesSel],s=d.saldoCarla;
+  const sv=document.getElementById('saldo-valor');
+  sv.textContent=fmt(s);
+  sv.className='saldo-valor '+(s<0?'negativo':s>0?'positivo':'neutro');
+  document.getElementById('saldo-label').textContent=s<0?'Carla deve ao Matheus':s>0?'Matheus deve a Carla':'Tudo quitado!';
+  const a=d.saldoAcum;
+  document.getElementById('saldo-sub').textContent=a===0?'Saldo acumulado: quitado':a<0?'Acumulado: Carla deve '+fmt(a):'Acumulado: Matheus deve '+fmt(a);
+  document.getElementById('stat-total').textContent=fmt(d.total);
+  document.getElementById('stat-fixo').textContent='Fixo: '+fmt(d.fixoTotal);
+  document.getElementById('stat-var').textContent=fmt(d.varTotal);
+  document.getElementById('carla-pagou').textContent=fmt(d.carlaPagou);
+  document.getElementById('carla-detalhe').textContent='deveria pagar '+fmt(d.carlaDeve);
+  document.getElementById('carla-saldo').textContent=(s<=0?'- ':'+ ')+fmt(s);
+  document.getElementById('carla-saldo').className='pessoa-saldo '+(s<=0?'negativo':'positivo');
+  document.getElementById('matheus-pagou').textContent=fmt(d.matheusPagou);
+  document.getElementById('matheus-detalhe').textContent='deveria pagar '+fmt(d.matheusDeve);
+  document.getElementById('matheus-saldo').textContent=(s>=0?'- ':'+ ')+fmt(s);
+  document.getElementById('matheus-saldo').className='pessoa-saldo '+(s>=0?'negativo':'positivo');
+  const maxC=Math.max(...d.cats.map(c=>c.v));
+  document.getElementById('categorias-list').innerHTML=d.cats.map(c=>`
+    <div class="cat-row">
+      <div class="cat-icon" style="background:${c.c}20"><i class="ti ${c.ic}" style="color:${c.c}"></i></div>
+      <div class="cat-info">
+        <div class="cat-nome">${c.n}</div>
+        <div class="cat-bar-wrap"><div class="cat-bar" style="width:${Math.round(c.v/maxC*100)}%;background:${c.c}"></div></div>
+      </div>
+      <div class="cat-right">
+        <div class="cat-valor">${fmt(c.v)}</div>
+        <div class="cat-pct">${Math.round(c.v/d.total*100)}%</div>
+      </div>
+    </div>`).join('');
+  document.getElementById('fixos-list').innerHTML=d.fixos.map(f=>`
+    <div class="fixo-row">
+      <div><div class="fixo-nome">${f.n}</div><div class="fixo-pagante">${f.p} paga</div></div>
+      <div class="fixo-valor">${fmt(f.v)}</div>
+    </div>`).join('');
+}
+
+function renderHistorico(){
+  document.getElementById('acum-list').innerHTML=meses.map(m=>{
+    const a=dados[m].saldoAcum;
+    return`<div class="acum-card" onclick="goMes('${m}')">
+      <div><div class="acum-mes">${nomeMes[m]}</div><div class="acum-sub">Total: ${fmt(dados[m].total)}</div></div>
+      <div class="acum-val ${a<0?'negativo':a>0?'positivo':''}">${a===0?'Quitado':a<0?'Carla deve '+fmt(a):'M. deve '+fmt(a)}</div>
+    </div>`;}).join('');
+  document.getElementById('historico-list').innerHTML=meses.map(m=>{
+    const s=dados[m].saldoCarla;
+    return`<div class="hist-row" onclick="goMes('${m}')">
+      <div><div class="hist-mes">${nomeMes[m]}</div><div class="hist-total">Total: ${fmt(dados[m].total)}</div></div>
+      <div class="hist-saldo ${s<0?'negativo':s>0?'positivo':''}">${s===0?'Quitado':s<0?'C->M '+fmt(s):'M->C '+fmt(s)}<i class="ti ti-chevron-right" style="font-size:14px"></i></div>
+    </div>`;}).join('');
+  if(chartInst)chartInst.destroy();
+  chartInst=new Chart(document.getElementById('histChart'),{
+    type:'bar',
+    data:{labels:['Jan','Fev','Mar','Abr'],datasets:[
+      {label:'Fixo',data:[16542,17193,17483,17302],backgroundColor:'#B5D4F4',borderRadius:4},
+      {label:'Variavel',data:[95871,17501,14333,32300],backgroundColor:'#378ADD',borderRadius:4}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:12}}},
+              y:{stacked:true,ticks:{callback:v=>'R$'+(v/1000).toFixed(0)+'k',font:{size:11}},grid:{color:'rgba(128,128,128,0.1)'}}}}
+  });
+}
+
+function goMes(m){
+  mesSel=m;
+  document.querySelectorAll('.month-tab').forEach((t,i)=>t.classList.toggle('active',meses[i]===m));
+  setPage('resumo',document.querySelector('.nav-item'));
+  renderResumo();
+}
+
+function setPage(page,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+  if(page==='historico')renderHistorico();
+}
+
+renderResumo();
+</script>
+</body>
+</html>
