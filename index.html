@@ -109,6 +109,7 @@ input,select{width:100%;padding:12px;border:1px solid #d1d1d6;border-radius:8px;
 .empty{text-align:center;padding:32px;color:#8e8e93;font-size:14px}
 .loading{text-align:center;padding:48px 16px;color:#8e8e93}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
@@ -162,18 +163,73 @@ function saveQuitacoes(q) {
   }
 }
 
+// ===== SUPABASE =====
+const SUPA_URL = 'https://anfyhkgcetegvcjxcbqr.supabase.co';
+const SUPA_KEY = 'sb_publishable_j_VvBJxc6ZrplZMitRKprQ_JFlSiHqW';
+const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+
 // ===== CARREGAR DADOS =====
 async function init() {
   try {
-    const resp = await fetch('dados.json?v=' + Date.now());
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    DADOS = await resp.json();
-    state.mes = DADOS.meses[DADOS.meses.length - 1]; // último mês
+    const [{ data: coresRows }, { data: mesesRows }, { data: fixosRows }, { data: itensRows }] = await Promise.all([
+      supa.from('cores').select('*'),
+      supa.from('meses').select('*'),
+      supa.from('fixos').select('*'),
+      supa.from('itens').select('*'),
+    ]);
+
+    const cores = {};
+    for (const r of coresRows) cores[r.categoria] = r.cor;
+
+    const mesesOrdem = mesesRows.map(r => r.mes);
+
+    const dados = {};
+    for (const r of mesesRows) {
+      dados[r.mes] = {
+        label: r.label,
+        total: r.total,
+        fix: r.fix,
+        varr: r.varr,
+        carlaPagou: r.carla_pagou,
+        carlaDeve: r.carla_deve,
+        matheusPagou: r.matheus_pagou,
+        matheusDeve: r.matheus_deve,
+        saldoCarla: r.saldo_carla,
+        cartaoSplit: { matheus: r.cartao_matheus, carla: r.cartao_carla },
+        fixos: [],
+        cats: [],
+      };
+    }
+
+    for (const f of fixosRows) {
+      if (dados[f.mes]) dados[f.mes].fixos.push({ n: f.nome, p: f.pagante, v: f.valor });
+    }
+
+    const catMap = {};
+    for (const it of itensRows) {
+      const key = it.mes + '|' + it.categoria;
+      if (!catMap[key]) catMap[key] = { n: it.categoria, v: 0, c: cores[it.categoria] || '#aaa', itens: [] };
+      catMap[key].itens.push({ n: it.nome, p: it.pagante, v: it.valor });
+      catMap[key].v += it.valor;
+    }
+
+    for (const [key, cat] of Object.entries(catMap)) {
+      const mes = key.split('|')[0];
+      if (dados[mes]) dados[mes].cats.push(cat);
+    }
+
+    for (const mes of mesesOrdem) {
+      dados[mes].cats.sort((a, b) => b.v - a.v);
+      for (const cat of dados[mes].cats) cat.itens.sort((a, b) => b.v - a.v);
+    }
+
+    DADOS = { meses: mesesOrdem, cores, dados };
+    state.mes = mesesOrdem[mesesOrdem.length - 1];
     state.acertoMes = state.mes;
     render();
   } catch (e) {
-    document.getElementById('app').innerHTML = 
-      '<div class="empty">Erro carregando dados.json: ' + e.message + '</div>';
+    document.getElementById('app').innerHTML =
+      '<div class="empty">Erro carregando dados: ' + e.message + '</div>';
   }
 }
 
