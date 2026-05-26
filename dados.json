@@ -1,0 +1,2067 @@
+{
+  "meses": [
+    "jan",
+    "fev",
+    "mar",
+    "abr"
+  ],
+  "cores": {
+    "Utilidades Casa": "#1a2f6b",
+    "Mercado": "#c9a84c",
+    "Restaurante/Bar": "#888888",
+    "Transporte": "#534AB7",
+    "Viagem": "#5856D6",
+    "Saude": "#ff3b30",
+    "Eventos/Jantares": "#BA7517",
+    "Presentes": "#D4537E",
+    "Roupas/Acessorios": "#FF9500",
+    "Assinaturas": "#34C759",
+    "Outros": "#aaaaaa"
+  },
+  "dados": {
+    "jan": {
+      "label": "Jan/26",
+      "total": 112415,
+      "fix": 16542,
+      "varr": 95873,
+      "carlaPagou": 33054,
+      "carlaDeve": 54553,
+      "matheusPagou": 79361,
+      "matheusDeve": 57862,
+      "saldoCarla": -21499,
+      "fixos": [
+        {
+          "n": "Financiamento",
+          "p": "Matheus",
+          "v": 13704
+        },
+        {
+          "n": "Condomínio",
+          "p": "Carla",
+          "v": 1606
+        },
+        {
+          "n": "Internet",
+          "p": "Carla",
+          "v": 150
+        },
+        {
+          "n": "Energia",
+          "p": "Carla",
+          "v": 229
+        },
+        {
+          "n": "Gás",
+          "p": "Carla",
+          "v": 63
+        },
+        {
+          "n": "Faxineira",
+          "p": "Carla",
+          "v": 600
+        },
+        {
+          "n": "Seguro carro",
+          "p": "Carla",
+          "v": 190
+        }
+      ],
+      "cats": [
+        {
+          "n": "Utilidades Casa",
+          "v": 77170,
+          "c": "#1a2f6b",
+          "itens": [
+            {
+              "n": "móveis mix cotia",
+              "p": "Matheus",
+              "v": 30000
+            },
+            {
+              "n": "ar condicionado",
+              "p": "Matheus",
+              "v": 8661
+            },
+            {
+              "n": "cama",
+              "p": "Carla",
+              "v": 7275
+            },
+            {
+              "n": "móveis planejados Thi (1/7)",
+              "p": "Carla",
+              "v": 6280
+            },
+            {
+              "n": "televisão sala",
+              "p": "Matheus",
+              "v": 4723
+            },
+            {
+              "n": "máquina de lavar",
+              "p": "Matheus",
+              "v": 3093
+            },
+            {
+              "n": "lava louças",
+              "p": "Matheus",
+              "v": 2715
+            },
+            {
+              "n": "televisão quarto",
+              "p": "Matheus",
+              "v": 2529
+            },
+            {
+              "n": "forno",
+              "p": "Matheus",
+              "v": 2500
+            },
+            {
+              "n": "cooktop",
+              "p": "Matheus",
+              "v": 2400
+            },
+            {
+              "n": "cervejeira",
+              "p": "Carla",
+              "v": 2208
+            },
+            {
+              "n": "roupa cama king",
+              "p": "Carla",
+              "v": 875
+            },
+            {
+              "n": "ML - talheres sobremesa",
+              "p": "Cartão Conjunto",
+              "v": 866
+            },
+            {
+              "n": "travesseiro visita",
+              "p": "Carla",
+              "v": 375
+            },
+            {
+              "n": "microondas",
+              "p": "Matheus",
+              "v": 365
+            },
+            {
+              "n": "utensílios cozinha",
+              "p": "Carla",
+              "v": 363
+            },
+            {
+              "n": "panela (1/6)",
+              "p": "Cartão Conjunto",
+              "v": 275
+            },
+            {
+              "n": "roupa cama casal 2",
+              "p": "Carla",
+              "v": 275
+            },
+            {
+              "n": "ML - roteador (1/5)",
+              "p": "Cartão Conjunto",
+              "v": 258
+            },
+            {
+              "n": "orquídea",
+              "p": "Carla",
+              "v": 182
+            },
+            {
+              "n": "ML - ímã suporte papel toalha",
+              "p": "Cartão Conjunto",
+              "v": 166
+            },
+            {
+              "n": "ML - cabide + orquídea",
+              "p": "Carla",
+              "v": 152
+            },
+            {
+              "n": "ML - potes + talher silicone",
+              "p": "Cartão Conjunto",
+              "v": 141
+            },
+            {
+              "n": "ML - coqueteleira",
+              "p": "Cartão Conjunto",
+              "v": 112
+            },
+            {
+              "n": "aspirador pó",
+              "p": "Carla",
+              "v": 100
+            },
+            {
+              "n": "cobertor + tapete",
+              "p": "Carla",
+              "v": 97
+            },
+            {
+              "n": "roupa cama casal (1/12)",
+              "p": "Carla",
+              "v": 96
+            },
+            {
+              "n": "ML - lixeira fogão + closet",
+              "p": "Cartão Conjunto",
+              "v": 58
+            },
+            {
+              "n": "ML - potinho mel",
+              "p": "Matheus",
+              "v": 30
+            }
+          ]
+        },
+        {
+          "n": "Presentes",
+          "v": 5279,
+          "c": "#D4537E",
+          "itens": [
+            {
+              "n": "presente bel",
+              "p": "Carla",
+              "v": 4899
+            },
+            {
+              "n": "presente rafa - lego",
+              "p": "Cartão Conjunto",
+              "v": 380
+            }
+          ]
+        },
+        {
+          "n": "Eventos/Jantares",
+          "v": 3286,
+          "c": "#BA7517",
+          "itens": [
+            {
+              "n": "emporium são paulo",
+              "p": "Cartão Conjunto",
+              "v": 1253
+            },
+            {
+              "n": "emporium são paulo",
+              "p": "Cartão Conjunto",
+              "v": 409
+            },
+            {
+              "n": "ingresso luz sé (c e m)",
+              "p": "Carla",
+              "v": 400
+            },
+            {
+              "n": "ML - comida jantar",
+              "p": "Matheus",
+              "v": 292
+            },
+            {
+              "n": "clube da ostra",
+              "p": "Matheus",
+              "v": 192
+            },
+            {
+              "n": "ML - comida jantar",
+              "p": "Matheus",
+              "v": 183
+            },
+            {
+              "n": "emporium são paulo",
+              "p": "Cartão Conjunto",
+              "v": 176
+            },
+            {
+              "n": "emporium são paulo",
+              "p": "Cartão Conjunto",
+              "v": 149
+            },
+            {
+              "n": "padaria jules",
+              "p": "Cartão Conjunto",
+              "v": 102
+            },
+            {
+              "n": "swift",
+              "p": "Cartão Conjunto",
+              "v": 69
+            },
+            {
+              "n": "padaria jules",
+              "p": "Cartão Conjunto",
+              "v": 61
+            }
+          ]
+        },
+        {
+          "n": "Transporte",
+          "v": 3208,
+          "c": "#534AB7",
+          "itens": [
+            {
+              "n": "passagem BH janeiro",
+              "p": "Matheus",
+              "v": 1040
+            },
+            {
+              "n": "passagem BH agosto",
+              "p": "Matheus",
+              "v": 729
+            },
+            {
+              "n": "passagem BH gol (1/4)",
+              "p": "Cartão Conjunto",
+              "v": 615
+            },
+            {
+              "n": "passagem BH abril",
+              "p": "Matheus",
+              "v": 535
+            },
+            {
+              "n": "uber 99",
+              "p": "Matheus",
+              "v": 53
+            },
+            {
+              "n": "estacionamento",
+              "p": "Carla",
+              "v": 35
+            },
+            {
+              "n": "uber",
+              "p": "Carla",
+              "v": 33
+            },
+            {
+              "n": "estacionamento",
+              "p": "Matheus",
+              "v": 30
+            },
+            {
+              "n": "uber",
+              "p": "Carla",
+              "v": 25
+            },
+            {
+              "n": "estacionamento",
+              "p": "Carla",
+              "v": 22
+            },
+            {
+              "n": "uber 99",
+              "p": "Carla",
+              "v": 18
+            },
+            {
+              "n": "uber 99",
+              "p": "Carla",
+              "v": 16
+            },
+            {
+              "n": "uber",
+              "p": "Carla",
+              "v": 16
+            },
+            {
+              "n": "estacionamento rua",
+              "p": "Carla",
+              "v": 15
+            },
+            {
+              "n": "estacionamento rua",
+              "p": "Carla",
+              "v": 7
+            },
+            {
+              "n": "estacionamento",
+              "p": "Carla",
+              "v": 7
+            },
+            {
+              "n": "estacionamento rua",
+              "p": "Carla",
+              "v": 7
+            },
+            {
+              "n": "estacionamento",
+              "p": "Carla",
+              "v": 5
+            }
+          ]
+        },
+        {
+          "n": "Restaurante/Bar",
+          "v": 1912,
+          "c": "#888888",
+          "itens": [
+            {
+              "n": "bar arcos sé",
+              "p": "Cartão Conjunto",
+              "v": 666
+            },
+            {
+              "n": "restaurante francês moema",
+              "p": "Cartão Conjunto",
+              "v": 344
+            },
+            {
+              "n": "almoço feijoada moema",
+              "p": "Cartão Conjunto",
+              "v": 305
+            },
+            {
+              "n": "bar bh",
+              "p": "Carla",
+              "v": 251
+            },
+            {
+              "n": "bar bh",
+              "p": "Carla",
+              "v": 197
+            },
+            {
+              "n": "bar bh",
+              "p": "Carla",
+              "v": 149
+            }
+          ]
+        },
+        {
+          "n": "Mercado",
+          "v": 1669,
+          "c": "#c9a84c",
+          "itens": [
+            {
+              "n": "mercado sams",
+              "p": "Cartão Conjunto",
+              "v": 324
+            },
+            {
+              "n": "ML - mercado",
+              "p": "Cartão Conjunto",
+              "v": 271
+            },
+            {
+              "n": "emporium são paulo",
+              "p": "Cartão Conjunto",
+              "v": 265
+            },
+            {
+              "n": "emporium são paulo",
+              "p": "Matheus",
+              "v": 156
+            },
+            {
+              "n": "açougue",
+              "p": "Cartão Conjunto",
+              "v": 148
+            },
+            {
+              "n": "emporium são paulo",
+              "p": "Cartão Conjunto",
+              "v": 125
+            },
+            {
+              "n": "sacolão BH",
+              "p": "Carla",
+              "v": 103
+            },
+            {
+              "n": "açougue",
+              "p": "Matheus",
+              "v": 69
+            },
+            {
+              "n": "mercado KOA - bala",
+              "p": "Cartão Conjunto",
+              "v": 65
+            },
+            {
+              "n": "isqueiro",
+              "p": "Cartão Conjunto",
+              "v": 45
+            },
+            {
+              "n": "álcool 90",
+              "p": "Cartão Conjunto",
+              "v": 42
+            },
+            {
+              "n": "ovos",
+              "p": "Cartão Conjunto",
+              "v": 37
+            },
+            {
+              "n": "mercado dia",
+              "p": "Cartão Conjunto",
+              "v": 13
+            },
+            {
+              "n": "oxxo",
+              "p": "Cartão Conjunto",
+              "v": 6
+            }
+          ]
+        },
+        {
+          "n": "Outros",
+          "v": 1336,
+          "c": "#aaaaaa",
+          "itens": [
+            {
+              "n": "conta tio Dovigo (casamento + pessoais) (1/10)",
+              "p": "Cartão Conjunto",
+              "v": 957
+            },
+            {
+              "n": "conta luz (particular Carla)",
+              "p": "Cartão Conjunto",
+              "v": 229
+            },
+            {
+              "n": "tim (particular Carla)",
+              "p": "Cartão Conjunto",
+              "v": 150
+            }
+          ]
+        },
+        {
+          "n": "Saude",
+          "v": 869,
+          "c": "#ff3b30",
+          "itens": [
+            {
+              "n": "raia",
+              "p": "Matheus",
+              "v": 216
+            },
+            {
+              "n": "raia",
+              "p": "Carla",
+              "v": 206
+            },
+            {
+              "n": "consulta Marcelo",
+              "p": "Carla",
+              "v": 160
+            },
+            {
+              "n": "raia",
+              "p": "Cartão Conjunto",
+              "v": 135
+            },
+            {
+              "n": "exame Marcelo",
+              "p": "Carla",
+              "v": 90
+            },
+            {
+              "n": "drogasil",
+              "p": "Cartão Conjunto",
+              "v": 33
+            },
+            {
+              "n": "panvel",
+              "p": "Carla",
+              "v": 19
+            },
+            {
+              "n": "pavel",
+              "p": "Cartão Conjunto",
+              "v": 10
+            }
+          ]
+        },
+        {
+          "n": "Viagem",
+          "v": 516,
+          "c": "#5856D6",
+          "itens": [
+            {
+              "n": "qatar",
+              "p": "Matheus",
+              "v": 516
+            }
+          ]
+        },
+        {
+          "n": "Roupas/Acessorios",
+          "v": 408,
+          "c": "#FF9500",
+          "itens": [
+            {
+              "n": "roupa Matheus ano novo + shorts",
+              "p": "Carla",
+              "v": 408
+            }
+          ]
+        },
+        {
+          "n": "Assinaturas",
+          "v": 220,
+          "c": "#34C759",
+          "itens": [
+            {
+              "n": "meli+ e assinatura",
+              "p": "Carla",
+              "v": 127
+            },
+            {
+              "n": "assinatura globo+",
+              "p": "Carla",
+              "v": 55
+            },
+            {
+              "n": "assinatura HBO",
+              "p": "Carla",
+              "v": 15
+            },
+            {
+              "n": "assinatura netflix",
+              "p": "Carla",
+              "v": 13
+            },
+            {
+              "n": "assinatura prime",
+              "p": "Carla",
+              "v": 10
+            }
+          ]
+        }
+      ],
+      "cartaoSplit": {
+        "matheus": 4630,
+        "carla": 4630
+      }
+    },
+    "fev": {
+      "label": "Fev/26",
+      "total": 34696,
+      "fix": 17193,
+      "varr": 17503,
+      "carlaPagou": 10659,
+      "carlaDeve": 15629,
+      "matheusPagou": 24035,
+      "matheusDeve": 19067,
+      "saldoCarla": -4970,
+      "fixos": [
+        {
+          "n": "Financiamento",
+          "p": "Matheus",
+          "v": 13704
+        },
+        {
+          "n": "Condomínio",
+          "p": "Carla",
+          "v": 1606
+        },
+        {
+          "n": "IPTU",
+          "p": "Carla",
+          "v": 612
+        },
+        {
+          "n": "Internet",
+          "p": "Carla",
+          "v": 150
+        },
+        {
+          "n": "Energia",
+          "p": "Carla",
+          "v": 159
+        },
+        {
+          "n": "Gás",
+          "p": "Carla",
+          "v": 172
+        },
+        {
+          "n": "Faxineira",
+          "p": "Carla",
+          "v": 600
+        },
+        {
+          "n": "Seguro carro",
+          "p": "Carla",
+          "v": 190
+        }
+      ],
+      "cats": [
+        {
+          "n": "Utilidades Casa",
+          "v": 8685,
+          "c": "#1a2f6b",
+          "itens": [
+            {
+              "n": "móveis planejados Thi (2/7)",
+              "p": "Carla",
+              "v": 6280
+            },
+            {
+              "n": "tábua corte, assadeiras, alicate, leiteira, conector",
+              "p": "Cartão Conjunto",
+              "v": 604
+            },
+            {
+              "n": "pillow",
+              "p": "Carla",
+              "v": 459
+            },
+            {
+              "n": "panela (2/6)",
+              "p": "Cartão Conjunto",
+              "v": 275
+            },
+            {
+              "n": "ML - roteador (2/5)",
+              "p": "Cartão Conjunto",
+              "v": 258
+            },
+            {
+              "n": "manteigueira",
+              "p": "Cartão Conjunto",
+              "v": 250
+            },
+            {
+              "n": "lâmpadas",
+              "p": "Cartão Conjunto",
+              "v": 115
+            },
+            {
+              "n": "roupa cama casal (2/12)",
+              "p": "Carla",
+              "v": 96
+            },
+            {
+              "n": "pilão ralador cutelo",
+              "p": "Cartão Conjunto",
+              "v": 86
+            },
+            {
+              "n": "plástico cobrir sofá",
+              "p": "Cartão Conjunto",
+              "v": 71
+            },
+            {
+              "n": "plástico cobrir sofá",
+              "p": "Cartão Conjunto",
+              "v": 71
+            },
+            {
+              "n": "tábua corte, assadeiras, alicate, leiteira, conector (1/5)",
+              "p": "Cartão Conjunto",
+              "v": 33
+            },
+            {
+              "n": "pano de prato",
+              "p": "Matheus",
+              "v": 31
+            },
+            {
+              "n": "pilão ralador cutelo (1/5)",
+              "p": "Cartão Conjunto",
+              "v": 28
+            },
+            {
+              "n": "velcro fechar sofá",
+              "p": "Cartão Conjunto",
+              "v": 28
+            }
+          ]
+        },
+        {
+          "n": "Mercado",
+          "v": 2016,
+          "c": "#c9a84c",
+          "itens": [
+            {
+              "n": "emporio são paulo",
+              "p": "Cartão Conjunto",
+              "v": 861
+            },
+            {
+              "n": "trella (1/2)",
+              "p": "Cartão Conjunto",
+              "v": 176
+            },
+            {
+              "n": "suco proteico",
+              "p": "Cartão Conjunto",
+              "v": 172
+            },
+            {
+              "n": "swift",
+              "p": "Cartão Conjunto",
+              "v": 131
+            },
+            {
+              "n": "bem bh",
+              "p": "Cartão Conjunto",
+              "v": 116
+            },
+            {
+              "n": "emporio são paulo",
+              "p": "Cartão Conjunto",
+              "v": 115
+            },
+            {
+              "n": "mercado bh",
+              "p": "Cartão Conjunto",
+              "v": 113
+            },
+            {
+              "n": "espasso sabores mogi",
+              "p": "Cartão Conjunto",
+              "v": 79
+            },
+            {
+              "n": "emporio são paulo",
+              "p": "Cartão Conjunto",
+              "v": 71
+            },
+            {
+              "n": "ovos",
+              "p": "Cartão Conjunto",
+              "v": 70
+            },
+            {
+              "n": "mercado japonês koa",
+              "p": "Cartão Conjunto",
+              "v": 48
+            },
+            {
+              "n": "bem bh",
+              "p": "Cartão Conjunto",
+              "v": 25
+            },
+            {
+              "n": "bem bh",
+              "p": "Cartão Conjunto",
+              "v": 22
+            },
+            {
+              "n": "emporio são paulo",
+              "p": "Cartão Conjunto",
+              "v": 17
+            }
+          ]
+        },
+        {
+          "n": "Saude",
+          "v": 1502,
+          "c": "#ff3b30",
+          "itens": [
+            {
+              "n": "creatina",
+              "p": "Cartão Conjunto",
+              "v": 691
+            },
+            {
+              "n": "vitamina d",
+              "p": "Cartão Conjunto",
+              "v": 331
+            },
+            {
+              "n": "essential - suplemento (1/6)",
+              "p": "Cartão Conjunto",
+              "v": 187
+            },
+            {
+              "n": "creme dermatite",
+              "p": "Carla",
+              "v": 132
+            },
+            {
+              "n": "panvel",
+              "p": "Cartão Conjunto",
+              "v": 75
+            },
+            {
+              "n": "drogasil",
+              "p": "Cartão Conjunto",
+              "v": 57
+            },
+            {
+              "n": "panvel",
+              "p": "Cartão Conjunto",
+              "v": 29
+            }
+          ]
+        },
+        {
+          "n": "Restaurante/Bar",
+          "v": 1298,
+          "c": "#888888",
+          "itens": [
+            {
+              "n": "restaurante",
+              "p": "Cartão Conjunto",
+              "v": 961
+            },
+            {
+              "n": "passeio holambra - comida/bebida",
+              "p": "Cartão Conjunto",
+              "v": 135
+            },
+            {
+              "n": "café mug amigas mar",
+              "p": "Cartão Conjunto",
+              "v": 72
+            },
+            {
+              "n": "passeio holambra - comida/bebida",
+              "p": "Cartão Conjunto",
+              "v": 60
+            },
+            {
+              "n": "passeio holambra - comida/bebida",
+              "p": "Cartão Conjunto",
+              "v": 40
+            },
+            {
+              "n": "passeio holambra - comida/bebida",
+              "p": "Cartão Conjunto",
+              "v": 30
+            }
+          ]
+        },
+        {
+          "n": "Transporte",
+          "v": 1288,
+          "c": "#534AB7",
+          "itens": [
+            {
+              "n": "passagem BH gol (2/4)",
+              "p": "Cartão Conjunto",
+              "v": 615
+            },
+            {
+              "n": "passagem BH dezembro (1/4)",
+              "p": "Cartão Conjunto",
+              "v": 189
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 157
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 95
+            },
+            {
+              "n": "posto",
+              "p": "Cartão Conjunto",
+              "v": 66
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 31
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 29
+            },
+            {
+              "n": "taxi aeroporto volta casa",
+              "p": "Carla",
+              "v": 25
+            },
+            {
+              "n": "estacionamento",
+              "p": "Cartão Conjunto",
+              "v": 22
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 19
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 19
+            },
+            {
+              "n": "estacionamento rua",
+              "p": "Cartão Conjunto",
+              "v": 14
+            },
+            {
+              "n": "estacionamento rua",
+              "p": "Cartão Conjunto",
+              "v": 7
+            }
+          ]
+        },
+        {
+          "n": "Outros",
+          "v": 1157,
+          "c": "#aaaaaa",
+          "itens": [
+            {
+              "n": "conta tio Dovigo (casamento + pessoais) (2/10)",
+              "p": "Cartão Conjunto",
+              "v": 957
+            },
+            {
+              "n": "cabelo Matheus sil",
+              "p": "Cartão Conjunto",
+              "v": 180
+            },
+            {
+              "n": "conta tim",
+              "p": "Cartão Conjunto",
+              "v": 149
+            },
+            {
+              "n": "revista lógica",
+              "p": "Cartão Conjunto",
+              "v": 21
+            },
+            {
+              "n": "conta tim (reembolso)",
+              "p": "Carla",
+              "v": -150
+            }
+          ]
+        },
+        {
+          "n": "Presentes",
+          "v": 800,
+          "c": "#D4537E",
+          "itens": [
+            {
+              "n": "presente ana paula - track field",
+              "p": "Carla",
+              "v": 380
+            },
+            {
+              "n": "presente teteia",
+              "p": "Cartão Conjunto",
+              "v": 298
+            },
+            {
+              "n": "bolo aniversário ana paula",
+              "p": "Carla",
+              "v": 122
+            }
+          ]
+        },
+        {
+          "n": "Eventos/Jantares",
+          "v": 627,
+          "c": "#BA7517",
+          "itens": [
+            {
+              "n": "churrasco paulinho",
+              "p": "Cartão Conjunto",
+              "v": 558
+            },
+            {
+              "n": "churrasco paulinho carvão",
+              "p": "Cartão Conjunto",
+              "v": 172
+            },
+            {
+              "n": "cerveja churras carnaval paulinho",
+              "p": "Carla",
+              "v": 136
+            },
+            {
+              "n": "padaria jules",
+              "p": "Cartão Conjunto",
+              "v": 71
+            },
+            {
+              "n": "churrasco paulinho (reembolso)",
+              "p": "Carla",
+              "v": -310
+            }
+          ]
+        },
+        {
+          "n": "Viagem",
+          "v": 130,
+          "c": "#5856D6",
+          "itens": [
+            {
+              "n": "passeio holambra - entrada",
+              "p": "Cartão Conjunto",
+              "v": 72
+            },
+            {
+              "n": "passeio holambra - extras",
+              "p": "Cartão Conjunto",
+              "v": 30
+            },
+            {
+              "n": "passeio holambra - entrada",
+              "p": "Cartão Conjunto",
+              "v": 18
+            },
+            {
+              "n": "passeio holambra - extras",
+              "p": "Cartão Conjunto",
+              "v": 10
+            }
+          ]
+        }
+      ],
+      "cartaoSplit": {
+        "matheus": 10300,
+        "carla": 0
+      }
+    },
+    "mar": {
+      "label": "Mar/26",
+      "total": 31818,
+      "fix": 17483,
+      "varr": 14335,
+      "carlaPagou": 10017,
+      "carlaDeve": 14161,
+      "matheusPagou": 21799,
+      "matheusDeve": 17657,
+      "saldoCarla": -4144,
+      "fixos": [
+        {
+          "n": "Financiamento",
+          "p": "Matheus",
+          "v": 13692
+        },
+        {
+          "n": "Condomínio",
+          "p": "Carla",
+          "v": 1606
+        },
+        {
+          "n": "IPTU",
+          "p": "Carla",
+          "v": 612
+        },
+        {
+          "n": "Internet",
+          "p": "Carla",
+          "v": 150
+        },
+        {
+          "n": "Energia",
+          "p": "Carla",
+          "v": 524
+        },
+        {
+          "n": "Gás",
+          "p": "Carla",
+          "v": 109
+        },
+        {
+          "n": "Faxineira",
+          "p": "Carla",
+          "v": 600
+        },
+        {
+          "n": "Seguro carro",
+          "p": "Carla",
+          "v": 190
+        }
+      ],
+      "cats": [
+        {
+          "n": "Utilidades Casa",
+          "v": 7441,
+          "c": "#1a2f6b",
+          "itens": [
+            {
+              "n": "móveis planejados Thi (3/7)",
+              "p": "Carla",
+              "v": 6280
+            },
+            {
+              "n": "panela (3/6)",
+              "p": "Cartão Conjunto",
+              "v": 275
+            },
+            {
+              "n": "ML - roteador (3/5)",
+              "p": "Cartão Conjunto",
+              "v": 258
+            },
+            {
+              "n": "jogos party games (1/2)",
+              "p": "Cartão Conjunto",
+              "v": 205
+            },
+            {
+              "n": "pendente quarto (1/6)",
+              "p": "Cartão Conjunto",
+              "v": 163
+            },
+            {
+              "n": "cheirinho casa (1/3)",
+              "p": "Cartão Conjunto",
+              "v": 103
+            },
+            {
+              "n": "roupa cama casal (3/12)",
+              "p": "Carla",
+              "v": 96
+            },
+            {
+              "n": "tábua corte, assadeiras, alicate, leiteira, conector (2/5)",
+              "p": "Cartão Conjunto",
+              "v": 33
+            },
+            {
+              "n": "pilão ralador cutelo (2/5)",
+              "p": "Cartão Conjunto",
+              "v": 28
+            }
+          ]
+        },
+        {
+          "n": "Mercado",
+          "v": 2157,
+          "c": "#c9a84c",
+          "itens": [
+            {
+              "n": "mercado são paulo",
+              "p": "Cartão Conjunto",
+              "v": 311
+            },
+            {
+              "n": "mercado são paulo",
+              "p": "Cartão Conjunto",
+              "v": 272
+            },
+            {
+              "n": "açougue",
+              "p": "Cartão Conjunto",
+              "v": 203
+            },
+            {
+              "n": "loja queijo mineiro",
+              "p": "Cartão Conjunto",
+              "v": 189
+            },
+            {
+              "n": "mercado são paulo",
+              "p": "Cartão Conjunto",
+              "v": 181
+            },
+            {
+              "n": "feira comida gostosa - mission chocolate",
+              "p": "Cartão Conjunto",
+              "v": 180
+            },
+            {
+              "n": "trella (2/2)",
+              "p": "Cartão Conjunto",
+              "v": 176
+            },
+            {
+              "n": "feira comida gostosa - queijos",
+              "p": "Cartão Conjunto",
+              "v": 150
+            },
+            {
+              "n": "feira comida gostosa - pasta",
+              "p": "Cartão Conjunto",
+              "v": 138
+            },
+            {
+              "n": "mercado são paulo",
+              "p": "Cartão Conjunto",
+              "v": 121
+            },
+            {
+              "n": "armazén queijo mineiro",
+              "p": "Cartão Conjunto",
+              "v": 76
+            },
+            {
+              "n": "mercado são paulo",
+              "p": "Cartão Conjunto",
+              "v": 67
+            },
+            {
+              "n": "feira comida gostosa - queijos",
+              "p": "Cartão Conjunto",
+              "v": 56
+            },
+            {
+              "n": "ovo",
+              "p": "Cartão Conjunto",
+              "v": 27
+            },
+            {
+              "n": "supermercado oxxo",
+              "p": "Cartão Conjunto",
+              "v": 5
+            },
+            {
+              "n": "padaria julies",
+              "p": "Cartão Conjunto",
+              "v": 5
+            }
+          ]
+        },
+        {
+          "n": "Restaurante/Bar",
+          "v": 2012,
+          "c": "#888888",
+          "itens": [
+            {
+              "n": "tordezilhas",
+              "p": "Cartão Conjunto",
+              "v": 440
+            },
+            {
+              "n": "giro bar",
+              "p": "Cartão Conjunto",
+              "v": 283
+            },
+            {
+              "n": "pilha vinagre álcool filtro café",
+              "p": "Cartão Conjunto",
+              "v": 236
+            },
+            {
+              "n": "pizza delicinha",
+              "p": "Cartão Conjunto",
+              "v": 219
+            },
+            {
+              "n": "bienal",
+              "p": "Cartão Conjunto",
+              "v": 112
+            },
+            {
+              "n": "feira comida gostosa - cerveja",
+              "p": "Cartão Conjunto",
+              "v": 101
+            },
+            {
+              "n": "lanche geremias",
+              "p": "Cartão Conjunto",
+              "v": 90
+            },
+            {
+              "n": "padaria frente tordezilhas",
+              "p": "Cartão Conjunto",
+              "v": 78
+            },
+            {
+              "n": "feira comida gostosa - lena",
+              "p": "Cartão Conjunto",
+              "v": 75
+            },
+            {
+              "n": "feira comida gostosa - lena",
+              "p": "Cartão Conjunto",
+              "v": 70
+            },
+            {
+              "n": "feira comida gostosa - cerveja",
+              "p": "Cartão Conjunto",
+              "v": 51
+            },
+            {
+              "n": "feira comida gostosa - comida",
+              "p": "Cartão Conjunto",
+              "v": 42
+            },
+            {
+              "n": "feira comida gostosa - lena",
+              "p": "Cartão Conjunto",
+              "v": 40
+            },
+            {
+              "n": "feira comida gostosa - cerveja",
+              "p": "Cartão Conjunto",
+              "v": 33
+            },
+            {
+              "n": "água",
+              "p": "Cartão Conjunto",
+              "v": 28
+            },
+            {
+              "n": "feira comida gostosa - cerveja",
+              "p": "Cartão Conjunto",
+              "v": 25
+            },
+            {
+              "n": "feira comida gostosa - sorvete",
+              "p": "Cartão Conjunto",
+              "v": 25
+            },
+            {
+              "n": "feira comida gostosa - cerveja",
+              "p": "Cartão Conjunto",
+              "v": 21
+            },
+            {
+              "n": "feira comida gostosa - cerveja",
+              "p": "Cartão Conjunto",
+              "v": 20
+            },
+            {
+              "n": "café",
+              "p": "Cartão Conjunto",
+              "v": 8
+            },
+            {
+              "n": "feira comida gostosa - água",
+              "p": "Cartão Conjunto",
+              "v": 8
+            },
+            {
+              "n": "feira comida gostosa - água",
+              "p": "Cartão Conjunto",
+              "v": 7
+            }
+          ]
+        },
+        {
+          "n": "Outros",
+          "v": 1441,
+          "c": "#aaaaaa",
+          "itens": [
+            {
+              "n": "conta tio Dovigo (casamento + pessoais) (3/10)",
+              "p": "Cartão Conjunto",
+              "v": 957
+            },
+            {
+              "n": "sil carla",
+              "p": "Cartão Conjunto",
+              "v": 330
+            },
+            {
+              "n": "conta tim",
+              "p": "Cartão Conjunto",
+              "v": 149
+            },
+            {
+              "n": "bluetooth carro",
+              "p": "Cartão Conjunto",
+              "v": 120
+            },
+            {
+              "n": "elástico exercício",
+              "p": "Cartão Conjunto",
+              "v": 35
+            },
+            {
+              "n": "conta tim (reembolso)",
+              "p": "Carla",
+              "v": -150
+            }
+          ]
+        },
+        {
+          "n": "Transporte",
+          "v": 868,
+          "c": "#534AB7",
+          "itens": [
+            {
+              "n": "passagem BH gol (3/4)",
+              "p": "Cartão Conjunto",
+              "v": 615
+            },
+            {
+              "n": "passagem BH dezembro (2/4)",
+              "p": "Cartão Conjunto",
+              "v": 189
+            },
+            {
+              "n": "estacionamento",
+              "p": "Cartão Conjunto",
+              "v": 40
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 14
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 10
+            }
+          ]
+        },
+        {
+          "n": "Saude",
+          "v": 210,
+          "c": "#ff3b30",
+          "itens": [
+            {
+              "n": "essential - suplemento (2/6)",
+              "p": "Cartão Conjunto",
+              "v": 187
+            },
+            {
+              "n": "farmácia panvel",
+              "p": "Cartão Conjunto",
+              "v": 23
+            }
+          ]
+        },
+        {
+          "n": "Eventos/Jantares",
+          "v": 206,
+          "c": "#BA7517",
+          "itens": [
+            {
+              "n": "torneio laço bizerro",
+              "p": "Cartão Conjunto",
+              "v": 93
+            },
+            {
+              "n": "torneio laço bizerro",
+              "p": "Cartão Conjunto",
+              "v": 44
+            },
+            {
+              "n": "torneio laço bizerro",
+              "p": "Cartão Conjunto",
+              "v": 35
+            },
+            {
+              "n": "recanto tio silmar comida",
+              "p": "Cartão Conjunto",
+              "v": 18
+            },
+            {
+              "n": "recanto tio silmar comida",
+              "p": "Cartão Conjunto",
+              "v": 16
+            }
+          ]
+        }
+      ],
+      "cartaoSplit": {
+        "matheus": 8107,
+        "carla": 0
+      }
+    },
+    "abr": {
+      "label": "Abr/26",
+      "total": 49606,
+      "fix": 17302,
+      "varr": 32304,
+      "carlaPagou": 23127,
+      "carlaDeve": 23073,
+      "matheusPagou": 26477,
+      "matheusDeve": 26533,
+      "saldoCarla": 54,
+      "fixos": [
+        {
+          "n": "Financiamento",
+          "p": "Matheus",
+          "v": 13690
+        },
+        {
+          "n": "Condomínio",
+          "p": "Carla",
+          "v": 1606
+        },
+        {
+          "n": "IPTU",
+          "p": "Carla",
+          "v": 612
+        },
+        {
+          "n": "Internet",
+          "p": "Carla",
+          "v": 150
+        },
+        {
+          "n": "Energia",
+          "p": "Carla",
+          "v": 315
+        },
+        {
+          "n": "Gás",
+          "p": "Carla",
+          "v": 139
+        },
+        {
+          "n": "Faxineira",
+          "p": "Carla",
+          "v": 600
+        },
+        {
+          "n": "Seguro carro",
+          "p": "Carla",
+          "v": 190
+        }
+      ],
+      "cats": [
+        {
+          "n": "Utilidades Casa",
+          "v": 19001,
+          "c": "#1a2f6b",
+          "itens": [
+            {
+              "n": "móveis planejados Thi (4/7)",
+              "p": "Carla",
+              "v": 6280
+            },
+            {
+              "n": "lustre mesa jantar",
+              "p": "Carla",
+              "v": 6000
+            },
+            {
+              "n": "vidro + espelhos 50%",
+              "p": "Carla",
+              "v": 2111
+            },
+            {
+              "n": "reinstalação ar",
+              "p": "Matheus",
+              "v": 790
+            },
+            {
+              "n": "prateleira temperos (1/3)",
+              "p": "Cartão Conjunto",
+              "v": 777
+            },
+            {
+              "n": "câmera casa",
+              "p": "Cartão Conjunto",
+              "v": 716
+            },
+            {
+              "n": "planta canto café",
+              "p": "Carla",
+              "v": 430
+            },
+            {
+              "n": "impermeabilização pedra sala",
+              "p": "Carla",
+              "v": 400
+            },
+            {
+              "n": "cortina (1/12)",
+              "p": "Cartão Conjunto",
+              "v": 362
+            },
+            {
+              "n": "prateleira",
+              "p": "Cartão Conjunto",
+              "v": 293
+            },
+            {
+              "n": "panela (4/6)",
+              "p": "Cartão Conjunto",
+              "v": 275
+            },
+            {
+              "n": "película 30%",
+              "p": "Carla",
+              "v": 266
+            },
+            {
+              "n": "ML - roteador (4/5)",
+              "p": "Cartão Conjunto",
+              "v": 258
+            },
+            {
+              "n": "jogos party games (2/2)",
+              "p": "Cartão Conjunto",
+              "v": 205
+            },
+            {
+              "n": "pendente quarto (2/6)",
+              "p": "Cartão Conjunto",
+              "v": 163
+            },
+            {
+              "n": "termômetro adega",
+              "p": "Cartão Conjunto",
+              "v": 136
+            },
+            {
+              "n": "cheirinho casa (2/3)",
+              "p": "Cartão Conjunto",
+              "v": 103
+            },
+            {
+              "n": "roupa cama casal (4/12)",
+              "p": "Carla",
+              "v": 96
+            },
+            {
+              "n": "T e adaptador",
+              "p": "Cartão Conjunto",
+              "v": 79
+            },
+            {
+              "n": "adaptador",
+              "p": "Cartão Conjunto",
+              "v": 47
+            },
+            {
+              "n": "tábua corte, assadeiras, alicate, leiteira, conector (3/5)",
+              "p": "Cartão Conjunto",
+              "v": 33
+            },
+            {
+              "n": "fio instalação móveis",
+              "p": "Cartão Conjunto",
+              "v": 29
+            },
+            {
+              "n": "pilão ralador cutelo (3/5)",
+              "p": "Cartão Conjunto",
+              "v": 28
+            },
+            {
+              "n": "prateleira copinhos - devolvi",
+              "p": "Cartão Conjunto",
+              "v": -876
+            }
+          ]
+        },
+        {
+          "n": "Viagem",
+          "v": 5750,
+          "c": "#5856D6",
+          "itens": [
+            {
+              "n": "viagem uruguai",
+              "p": "Cartão Conjunto",
+              "v": 1870
+            },
+            {
+              "n": "viagem santo antonio pinhal - jonny",
+              "p": "Carla",
+              "v": 1760
+            },
+            {
+              "n": "viagem santo antonio pinhal - vinícola reserva",
+              "p": "Carla",
+              "v": 590
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 353
+            },
+            {
+              "n": "viagem santo antonio pinhal - vinícola adicional",
+              "p": "Carla",
+              "v": 226
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 165
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 121
+            },
+            {
+              "n": "retirada painel madeira - lixo",
+              "p": "Carla",
+              "v": 80
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 73
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 71
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 68
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 56
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 52
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 48
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 46
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 36
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 35
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 32
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 25
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 22
+            },
+            {
+              "n": "viagem santo ant pinhal",
+              "p": "Cartão Conjunto",
+              "v": 21
+            }
+          ]
+        },
+        {
+          "n": "Mercado",
+          "v": 2519,
+          "c": "#c9a84c",
+          "itens": [
+            {
+              "n": "grão de café",
+              "p": "Cartão Conjunto",
+              "v": 417
+            },
+            {
+              "n": "mercado",
+              "p": "Cartão Conjunto",
+              "v": 363
+            },
+            {
+              "n": "mercado",
+              "p": "Cartão Conjunto",
+              "v": 346
+            },
+            {
+              "n": "shampoo",
+              "p": "Cartão Conjunto",
+              "v": 340
+            },
+            {
+              "n": "mercado mogi",
+              "p": "Cartão Conjunto",
+              "v": 244
+            },
+            {
+              "n": "mercado mogi",
+              "p": "Cartão Conjunto",
+              "v": 163
+            },
+            {
+              "n": "mercado mogi",
+              "p": "Cartão Conjunto",
+              "v": 157
+            },
+            {
+              "n": "mercado",
+              "p": "Cartão Conjunto",
+              "v": 138
+            },
+            {
+              "n": "mercado japonês",
+              "p": "Cartão Conjunto",
+              "v": 75
+            },
+            {
+              "n": "mercado japonês",
+              "p": "Cartão Conjunto",
+              "v": 64
+            },
+            {
+              "n": "mercado mogi",
+              "p": "Cartão Conjunto",
+              "v": 56
+            },
+            {
+              "n": "mercado ovo",
+              "p": "Cartão Conjunto",
+              "v": 54
+            },
+            {
+              "n": "mercado mogi",
+              "p": "Cartão Conjunto",
+              "v": 53
+            },
+            {
+              "n": "mercado nórdico",
+              "p": "Cartão Conjunto",
+              "v": 49
+            }
+          ]
+        },
+        {
+          "n": "Outros",
+          "v": 2415,
+          "c": "#aaaaaa",
+          "itens": [
+            {
+              "n": "revisão carro",
+              "p": "Carla",
+              "v": 1426
+            },
+            {
+              "n": "conta tio Dovigo (casamento + pessoais) (4/10)",
+              "p": "Cartão Conjunto",
+              "v": 957
+            },
+            {
+              "n": "conta tim",
+              "p": "Cartão Conjunto",
+              "v": 149
+            },
+            {
+              "n": "elástico exercício",
+              "p": "Cartão Conjunto",
+              "v": 33
+            },
+            {
+              "n": "conta tim (reembolso)",
+              "p": "Carla",
+              "v": -150
+            }
+          ]
+        },
+        {
+          "n": "Transporte",
+          "v": 1171,
+          "c": "#534AB7",
+          "itens": [
+            {
+              "n": "passagem BH gol (4/4)",
+              "p": "Cartão Conjunto",
+              "v": 615
+            },
+            {
+              "n": "passagem BH dezembro (3/4)",
+              "p": "Cartão Conjunto",
+              "v": 189
+            },
+            {
+              "n": "gasolina",
+              "p": "Cartão Conjunto",
+              "v": 150
+            },
+            {
+              "n": "estacionamento",
+              "p": "Cartão Conjunto",
+              "v": 70
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 48
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 32
+            },
+            {
+              "n": "estacionamento",
+              "p": "Cartão Conjunto",
+              "v": 30
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 21
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 11
+            },
+            {
+              "n": "uber",
+              "p": "Cartão Conjunto",
+              "v": 5
+            }
+          ]
+        },
+        {
+          "n": "Restaurante/Bar",
+          "v": 883,
+          "c": "#888888",
+          "itens": [
+            {
+              "n": "mission chocolate",
+              "p": "Cartão Conjunto",
+              "v": 623
+            },
+            {
+              "n": "boteco moema",
+              "p": "Cartão Conjunto",
+              "v": 185
+            },
+            {
+              "n": "café com je e gustavo",
+              "p": "Cartão Conjunto",
+              "v": 75
+            }
+          ]
+        },
+        {
+          "n": "Saude",
+          "v": 565,
+          "c": "#ff3b30",
+          "itens": [
+            {
+              "n": "vitamina",
+              "p": "Cartão Conjunto",
+              "v": 318
+            },
+            {
+              "n": "essential - suplemento (3/6)",
+              "p": "Cartão Conjunto",
+              "v": 187
+            },
+            {
+              "n": "farmácia",
+              "p": "Cartão Conjunto",
+              "v": 60
+            }
+          ]
+        }
+      ],
+      "cartaoSplit": {
+        "matheus": 11997,
+        "carla": 0
+      }
+    }
+  }
+}
