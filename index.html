@@ -108,6 +108,20 @@ input,select{width:100%;padding:12px;border:1px solid #d1d1d6;border-radius:8px;
 .detail-val{font-size:18px;font-weight:600;margin-top:4px}
 .empty{text-align:center;padding:32px;color:#8e8e93;font-size:14px}
 .loading{text-align:center;padding:48px 16px;color:#8e8e93}
+/* ===== IMPORTAR ===== */
+.imp-section-title{font-size:13px;color:#8e8e93;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;font-weight:500}
+.imp-row{display:flex;gap:8px;align-items:stretch;margin-bottom:8px}
+.imp-row input,.imp-row select{flex:1;padding:10px 12px;font-size:14px;border:1px solid #d1d1d6;border-radius:8px;background:#fff;color:#1c1c1e;width:auto;min-width:0}
+@media (prefers-color-scheme:dark){.imp-row input,.imp-row select{background:#2c2c2e;color:#f2f2f7;border-color:#3a3a3c}}
+.imp-del{background:#ff3b30;color:#fff;border:none;border-radius:8px;padding:0 14px;font-size:20px;cursor:pointer;flex-shrink:0}
+.imp-preview{background:#f2f2f7;border-radius:12px;padding:16px;margin-bottom:16px}
+@media (prefers-color-scheme:dark){.imp-preview{background:#2c2c2e}}
+.imp-preview-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:14px}
+.imp-preview-row.ptotal{font-weight:700;font-size:16px;border-top:1px solid #e5e5ea;padding-top:10px;margin-top:4px}
+@media (prefers-color-scheme:dark){.imp-preview-row.ptotal{border-color:#3a3a3c}}
+.file-zone{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px 16px;border:2px dashed #d1d1d6;border-radius:10px;cursor:pointer;color:#8e8e93;font-size:14px;margin-bottom:8px;text-align:center;transition:all .15s}
+.file-zone.has-file{border-color:#1a2f6b;color:#1a2f6b;border-style:solid;font-weight:500}
+@media (prefers-color-scheme:dark){.file-zone.has-file{color:#c9a84c;border-color:#c9a84c}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
@@ -129,6 +143,7 @@ input,select{width:100%;padding:12px;border:1px solid #d1d1d6;border-radius:8px;
   <button class="nav-btn active" data-tab="gastos"><span class="nav-icon">⊞</span>Gastos</button>
   <button class="nav-btn" data-tab="historico"><span class="nav-icon">📊</span>Histórico</button>
   <button class="nav-btn" data-tab="acerto"><span class="nav-icon">⚖️</span>Acerto</button>
+  <button class="nav-btn" data-tab="importar"><span class="nav-icon">📥</span>Importar</button>
 </nav>
 
 <script>
@@ -243,13 +258,15 @@ function render() {
   const app = document.getElementById('app');
   if (state.tab === 'gastos') app.innerHTML = renderGastos();
   else if (state.tab === 'historico') app.innerHTML = renderHistorico();
+  else if (state.tab === 'importar') app.innerHTML = renderImportar();
   else app.innerHTML = renderAcerto();
-  
+
   // Header right
   const hr = document.getElementById('header-right');
   hr.textContent = state.tab === 'gastos' ? (DADOS.dados[state.mes]?.label || '') : '';
-  
+
   attachHandlers();
+  if (state.tab === 'importar') updatePreview();
 }
 
 // ===== TELA 1: GASTOS =====
@@ -652,6 +669,447 @@ function closeModal() {
 document.addEventListener('click', (e) => {
   if (e.target.id === 'cmf-modal') closeModal();
 });
+
+// ===== IMPORTAR =====
+const CATS_VARR = ['Utilidades Casa','Mercado','Restaurante/Bar','Transporte','Viagem','Saude','Eventos/Jantares','Presentes','Roupas/Acessorios','Assinaturas','Outros'];
+const MESES_ABBR = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const MESES_LBL  = ['Jan/26','Fev/26','Mar/26','Abr/26','Mai/26','Jun/26','Jul/26','Ago/26','Set/26','Out/26','Nov/26','Dez/26'];
+const FIXOS_DEFAULT = [
+  {n:'Financiamento', p:'Matheus', v:13704},
+  {n:'Condomínio',    p:'Carla',   v:1606},
+  {n:'IPTU',          p:'Carla',   v:612},
+  {n:'Internet',      p:'Carla',   v:150},
+  {n:'Energia',       p:'Carla',   v:0},
+  {n:'Gás',           p:'Carla',   v:0},
+  {n:'Faxineira',     p:'Carla',   v:600},
+  {n:'Seguro carro',  p:'Carla',   v:190},
+];
+
+let impFixos   = null;
+let impItens   = [];
+let impAvulsos = [];
+let impPdfB64  = null;
+let impPdfNome = '';
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function getApiKey() { return localStorage.getItem('cmf_claude_key') || ''; }
+
+function salvarApiKey() {
+  const input = document.getElementById('imp-apikey');
+  const k = (input?.value || '').trim();
+  if (!k) return;
+  localStorage.setItem('cmf_claude_key', k);
+  input.value = '';
+  input.placeholder = '✓ Chave salva';
+  const btn = document.getElementById('imp-save-key');
+  if (btn) btn.textContent = '✓';
+  setTimeout(() => {
+    if (input) input.placeholder = '(chave configurada — deixe em branco para manter)';
+    if (btn) btn.textContent = 'Salvar';
+  }, 2000);
+}
+
+function catOpts(sel) {
+  return CATS_VARR.map(c => `<option ${c===sel?'selected':''}>${c}</option>`).join('');
+}
+function pagOpts(sel) {
+  return ['Carla','Matheus','Cartão Conjunto'].map(p => `<option ${p===sel?'selected':''}>${p}</option>`).join('');
+}
+function pagOptsFixed(sel) {
+  return ['Carla','Matheus'].map(p => `<option ${p===sel?'selected':''}>${p}</option>`).join('');
+}
+
+// -- Fixos --
+function renderFixosList() {
+  if (!impFixos || !impFixos.length) return '';
+  return impFixos.map((f, i) => `
+    <div class="imp-row">
+      <input type="text"   id="fx-n${i}" value="${escHtml(f.n)}" placeholder="Nome"  style="flex:2" oninput="impFixos[${i}].n=this.value">
+      <select              id="fx-p${i}" style="flex:1.2"                             onchange="impFixos[${i}].p=this.value">${pagOptsFixed(f.p)}</select>
+      <input type="number" id="fx-v${i}" value="${f.v||''}" placeholder="R$" style="max-width:88px" oninput="impFixos[${i}].v=parseInt(this.value)||0;updatePreview()">
+      <button class="imp-del" onclick="removeFixo(${i})">×</button>
+    </div>`).join('');
+}
+function addFixo() {
+  if (!impFixos) impFixos = [];
+  impFixos.push({n:'', p:'Carla', v:0});
+  document.getElementById('imp-fixos-list').innerHTML = renderFixosList();
+  updatePreview();
+}
+function removeFixo(i) {
+  impFixos.splice(i, 1);
+  document.getElementById('imp-fixos-list').innerHTML = renderFixosList();
+  updatePreview();
+}
+
+// -- Itens fatura --
+function renderItensList() {
+  if (!impItens.length)
+    return '<div class="muted" style="font-size:13px;padding:10px 0;text-align:center">Nenhum item. Faça o upload e processe o PDF.</div>';
+  return impItens.map((it, i) => `
+    <div class="imp-row" style="flex-wrap:wrap;gap:6px">
+      <input type="text"   id="it-n${i}" value="${escHtml(it.n)}" placeholder="Nome"  style="flex:2;min-width:120px" oninput="impItens[${i}].n=this.value">
+      <select              id="it-c${i}" style="flex:1.5;min-width:120px"              onchange="impItens[${i}].cat=this.value">${catOpts(it.cat)}</select>
+      <input type="number" id="it-v${i}" value="${it.v||''}" placeholder="R$" style="max-width:88px" oninput="impItens[${i}].v=parseInt(this.value)||0;onItensChange()">
+      <button class="imp-del" onclick="removeItem(${i})">×</button>
+    </div>`).join('');
+}
+function removeItem(i) {
+  impItens.splice(i, 1);
+  document.getElementById('imp-itens-list').innerHTML = renderItensList();
+  onItensChange();
+}
+function onItensChange() {
+  const total = impItens.reduce((s, it) => s + (it.v||0), 0);
+  const ct = document.getElementById('imp-split-total');
+  if (ct) ct.textContent = fmt(total);
+  updatePreview();
+}
+
+// -- Avulsos --
+function renderAvulsosList() {
+  if (!impAvulsos.length) return '';
+  return impAvulsos.map((a, i) => `
+    <div class="imp-row" style="flex-wrap:wrap;gap:6px">
+      <input type="text"   id="av-n${i}" value="${escHtml(a.n)}" placeholder="Nome"  style="flex:2;min-width:120px" oninput="impAvulsos[${i}].n=this.value">
+      <select              id="av-c${i}" style="flex:1.5;min-width:120px"              onchange="impAvulsos[${i}].cat=this.value">${catOpts(a.cat)}</select>
+      <select              id="av-p${i}" style="flex:1"                               onchange="impAvulsos[${i}].p=this.value">${pagOpts(a.p)}</select>
+      <input type="number" id="av-v${i}" value="${a.v||''}" placeholder="R$" style="max-width:88px" oninput="impAvulsos[${i}].v=parseInt(this.value)||0;updatePreview()">
+      <button class="imp-del" onclick="removeAvulso(${i})">×</button>
+    </div>`).join('');
+}
+function addAvulso() {
+  impAvulsos.push({n:'', cat:'Outros', p:'Carla', v:0});
+  document.getElementById('imp-avulsos-list').innerHTML = renderAvulsosList();
+}
+function removeAvulso(i) {
+  impAvulsos.splice(i, 1);
+  document.getElementById('imp-avulsos-list').innerHTML = renderAvulsosList();
+  updatePreview();
+}
+
+// -- PDF --
+function onPdfChange(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  impPdfNome = file.name;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    impPdfB64 = ev.target.result.split(',')[1];
+    const zone = document.getElementById('imp-pdf-zone');
+    if (zone) { zone.textContent = '📄 ' + impPdfNome; zone.classList.add('has-file'); }
+    const btn = document.getElementById('imp-process-btn');
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+  };
+  reader.readAsDataURL(file);
+}
+
+async function processarPDF() {
+  const apiKey = getApiKey();
+  if (!apiKey) { alert('Configure a chave API Claude primeiro (seção acima).'); return; }
+  if (!impPdfB64) { alert('Selecione um PDF primeiro.'); return; }
+
+  const statusEl = document.getElementById('imp-status');
+  const btn = document.getElementById('imp-process-btn');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Processando...'; }
+  statusEl.innerHTML = '<div class="loading">🤖 Analisando fatura com IA... pode demorar ~30s</div>';
+
+  const prompt = `Analise esta fatura do cartão Itaú Personnalité e extraia TODOS os lançamentos de compras/débitos.
+
+Ignore: pagamentos da fatura, encargos financeiros, IOF e créditos/estornos.
+
+Para cada lançamento retorne:
+- n: nome do estabelecimento resumido (max 35 chars, sem datas ou "parcela X/Y")
+- v: valor em reais inteiros arredondados (R$ 45,90 → 46; R$ 1.234,56 → 1235)
+- cat: exatamente uma destas: ${CATS_VARR.join(' | ')}
+- p: sempre "Cartão Conjunto"
+
+Dicas:
+Mercado → supermercado, feira, padaria, hortifruti
+Restaurante/Bar → restaurante, delivery (iFood/Rappi), bar, café, lanchonete
+Saude → farmácia, médico, hospital, clínica, plano de saúde
+Assinaturas → Netflix, Spotify, Amazon Prime, Apple, iCloud, Adobe, apps recorrentes
+Transporte → posto de gasolina, Uber, 99, metrô, estacionamento, pedágio
+Viagem → hotel, passagem aérea, agência de viagem
+Roupas/Acessorios → roupa, calçado, bolsa, joia, acessório
+Presentes → presente, gift card
+Eventos/Jantares → teatro, show, cinema, evento cultural
+Utilidades Casa → material de construção, móveis, eletrodoméstico, reforma, decoração
+Outros → qualquer outra coisa
+
+Retorne SOMENTE JSON, sem texto antes ou depois:
+{"itens":[{"n":"...","v":0,"cat":"...","p":"Cartão Conjunto"}],"totalReais":0}`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 8192,
+        messages: [{
+          role: 'user',
+          content: [
+            {type:'document', source:{type:'base64', media_type:'application/pdf', data: impPdfB64}},
+            {type:'text', text: prompt}
+          ]
+        }]
+      })
+    });
+
+    if (!resp.ok) {
+      const errData = await resp.json().catch(() => ({}));
+      throw new Error(errData.error?.message || `HTTP ${resp.status}`);
+    }
+
+    const data = await resp.json();
+    const text = data.content[0].text;
+    const m = text.match(/\{[\s\S]*\}/);
+    if (!m) throw new Error('Resposta inesperada: ' + text.slice(0, 200));
+
+    const parsed = JSON.parse(m[0]);
+    impItens = (parsed.itens || [])
+      .filter(it => it.v > 0)
+      .map(it => ({
+        n:   String(it.n || '').slice(0, 50),
+        cat: CATS_VARR.includes(it.cat) ? it.cat : 'Outros',
+        v:   Math.round(Math.abs(it.v)),
+        p:   'Cartão Conjunto',
+      }));
+
+    const totalReais = parsed.totalReais || impItens.reduce((s, it) => s + it.v, 0);
+    statusEl.innerHTML = `<div style="color:#34c759;font-size:14px;padding:6px 0">✓ ${impItens.length} itens extraídos · Total da fatura: ${fmt(totalReais)}</div>`;
+
+    document.getElementById('imp-itens-list').innerHTML = renderItensList();
+
+    const cm = document.getElementById('imp-split-matheus');
+    const cc = document.getElementById('imp-split-carla');
+    const ct = document.getElementById('imp-split-total');
+    if (cm) cm.value = totalReais;
+    if (cc) cc.value = 0;
+    if (ct) ct.textContent = fmt(totalReais);
+
+    updatePreview();
+  } catch (e) {
+    statusEl.innerHTML = `<div style="color:#ff3b30;font-size:14px;padding:6px 0">❌ Erro: ${e.message}</div>`;
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '🤖 Processar fatura com IA'; }
+  }
+}
+
+function onSplitChange(who) {
+  const total = impItens.reduce((s, it) => s + (it.v||0), 0);
+  const ct = document.getElementById('imp-split-total');
+  if (ct) ct.textContent = fmt(total);
+  if (who === 'matheus') {
+    const m = parseInt(document.getElementById('imp-split-matheus')?.value) || 0;
+    const cc = document.getElementById('imp-split-carla');
+    if (cc) cc.value = Math.max(0, total - m);
+  } else {
+    const c = parseInt(document.getElementById('imp-split-carla')?.value) || 0;
+    const cm = document.getElementById('imp-split-matheus');
+    if (cm) cm.value = Math.max(0, total - c);
+  }
+  updatePreview();
+}
+
+// -- Preview --
+function calcImpTotals() {
+  const fix  = (impFixos || []).reduce((s, f)  => s + (f.v||0),  0);
+  const all  = [...impItens, ...impAvulsos];
+  const varr = all.reduce((s, it) => s + (it.v||0), 0);
+  const cartaoMatheus = parseInt(document.getElementById('imp-split-matheus')?.value) || 0;
+  const cartaoCarla   = parseInt(document.getElementById('imp-split-carla')?.value)   || 0;
+  const carlaPagou    = (impFixos||[]).filter(f=>f.p==='Carla').reduce((s,f)=>s+(f.v||0),0)
+                      + all.filter(it=>it.p==='Carla').reduce((s,it)=>s+(it.v||0),0)
+                      + cartaoCarla;
+  const matheusPagou  = (impFixos||[]).filter(f=>f.p==='Matheus').reduce((s,f)=>s+(f.v||0),0)
+                      + all.filter(it=>it.p==='Matheus').reduce((s,it)=>s+(it.v||0),0)
+                      + cartaoMatheus;
+  const carlaDeve   = Math.round(fix * 0.4 + varr * 0.5);
+  const matheusDeve = Math.round(fix * 0.6 + varr * 0.5);
+  const saldoCarla  = carlaPagou - carlaDeve;
+  return {fix, varr, total: fix+varr, carlaPagou, matheusPagou, carlaDeve, matheusDeve, saldoCarla, cartaoMatheus, cartaoCarla};
+}
+
+function updatePreview() {
+  const el = document.getElementById('imp-preview');
+  if (!el) return;
+  const t = calcImpTotals();
+  const cor = t.saldoCarla >= 0 ? '#34c759' : '#ff3b30';
+  const saldoTxt = t.saldoCarla >= 0
+    ? `Carla recebe ${fmt(t.saldoCarla)} do Matheus`
+    : `Carla deve ${fmt(-t.saldoCarla)} ao Matheus`;
+  el.innerHTML = `
+    <div class="imp-preview-row"><span class="muted">Fixos (40/60)</span><span>${fmt(t.fix)}</span></div>
+    <div class="imp-preview-row"><span class="muted">Variável (50/50)</span><span>${fmt(t.varr)}</span></div>
+    <div class="imp-preview-row ptotal"><span>Total</span><span>${fmt(t.total)}</span></div>
+    <div style="height:10px"></div>
+    <div class="imp-preview-row"><span class="muted">Carla pagou / deveria</span><span>${fmt(t.carlaPagou)} / ${fmt(t.carlaDeve)}</span></div>
+    <div class="imp-preview-row"><span class="muted">Matheus pagou / deveria</span><span>${fmt(t.matheusPagou)} / ${fmt(t.matheusDeve)}</span></div>
+    <div class="imp-preview-row" style="color:${cor};font-weight:600;padding-top:8px;font-size:15px">${saldoTxt}</div>`;
+}
+
+// -- Salvar --
+async function salvarMesSupabase() {
+  const mesEl = document.getElementById('imp-mes');
+  if (!mesEl?.value) { alert('Selecione o mês.'); return; }
+  const mesId  = mesEl.value;
+  const mesIdx = MESES_ABBR.indexOf(mesId);
+  const label  = MESES_LBL[mesIdx] || mesId;
+  const t = calcImpTotals();
+  if (t.total === 0) { alert('Nenhum valor para salvar. Preencha os dados.'); return; }
+
+  const existente = DADOS?.meses.includes(mesId);
+  if (existente && !confirm(`⚠️ O mês ${label} já existe. Sobrescrever tudo?`)) return;
+
+  const saveBtn = document.getElementById('imp-save-btn');
+  if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = '⏳ Salvando...'; }
+
+  try {
+    if (existente) {
+      const {error} = await supa.from('meses').delete().eq('mes', mesId);
+      if (error) throw error;
+    }
+
+    const {error: e1} = await supa.from('meses').insert({
+      mes: mesId, label,
+      total: t.total, fix: t.fix, varr: t.varr,
+      carla_pagou: t.carlaPagou, carla_deve: t.carlaDeve,
+      matheus_pagou: t.matheusPagou, matheus_deve: t.matheusDeve,
+      saldo_carla: t.saldoCarla,
+      cartao_matheus: t.cartaoMatheus, cartao_carla: t.cartaoCarla,
+    });
+    if (e1) throw e1;
+
+    const fixosRows = (impFixos||[]).filter(f => f.n && f.v > 0).map(f => ({
+      mes: mesId, nome: f.n, pagante: f.p, valor: f.v,
+    }));
+    if (fixosRows.length) {
+      const {error: e2} = await supa.from('fixos').insert(fixosRows);
+      if (e2) throw e2;
+    }
+
+    const todosItens = [...impItens, ...impAvulsos].filter(it => it.n && it.v > 0);
+    if (todosItens.length) {
+      const {error: e3} = await supa.from('itens').insert(
+        todosItens.map(it => ({mes: mesId, categoria: it.cat, nome: it.n, pagante: it.p, valor: it.v}))
+      );
+      if (e3) throw e3;
+    }
+
+    alert(`✅ ${label} salvo!\n${fixosRows.length} fixos · ${todosItens.length} itens variáveis`);
+
+    impItens   = [];
+    impAvulsos = [];
+    impPdfB64  = null;
+    impPdfNome = '';
+    await init();
+    state.tab = 'gastos';
+    state.mes = mesId;
+    render();
+  } catch (e) {
+    alert('❌ Erro ao salvar: ' + (e.message || JSON.stringify(e)));
+    if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = '💾 Salvar no Supabase'; }
+  }
+}
+
+// -- Render aba --
+function getMesDefault() {
+  if (!DADOS || !DADOS.meses.length) return MESES_ABBR[0];
+  const idx = MESES_ABBR.indexOf(DADOS.meses[DADOS.meses.length - 1]);
+  return MESES_ABBR[Math.min(idx + 1, 11)];
+}
+
+function renderImportar() {
+  if (!impFixos) impFixos = FIXOS_DEFAULT.map(f => ({...f}));
+  const apiKey     = getApiKey();
+  const mesDefault = getMesDefault();
+  const mesOpts    = MESES_ABBR.map((m, i) =>
+    `<option value="${m}" ${m===mesDefault?'selected':''}>${MESES_LBL[i]}</option>`).join('');
+  const splitTotal = impItens.reduce((s, it) => s + (it.v||0), 0);
+
+  return `
+    <div class="card card-pad" style="margin-bottom:12px">
+      <div class="imp-section-title">🔑 Chave API Claude</div>
+      <div class="imp-row">
+        <input type="password" id="imp-apikey" placeholder="${apiKey ? '(chave configurada — deixe em branco para manter)' : 'sk-ant-api03-...'}" autocomplete="off">
+        <button id="imp-save-key" class="btn btn-secondary" style="width:auto;padding:10px 16px;margin:0;flex-shrink:0" onclick="salvarApiKey()">Salvar</button>
+      </div>
+      ${apiKey
+        ? '<div style="color:#34c759;font-size:12px;margin-top:4px">✓ Chave configurada</div>'
+        : '<div style="color:#ff9500;font-size:12px;margin-top:4px">⚠️ Configure a chave para processar PDF com IA</div>'}
+    </div>
+
+    <div class="card card-pad" style="margin-bottom:12px">
+      <div class="imp-section-title">📅 Mês a importar</div>
+      <select id="imp-mes">${mesOpts}</select>
+    </div>
+
+    <div class="card card-pad" style="margin-bottom:12px">
+      <div class="imp-section-title">💳 Fatura do cartão (PDF)</div>
+      <label for="imp-pdf">
+        <div class="file-zone ${impPdfNome ? 'has-file' : ''}" id="imp-pdf-zone">
+          ${impPdfNome ? '📄 ' + escHtml(impPdfNome) : '📂 Toque para escolher o PDF da fatura'}
+        </div>
+      </label>
+      <input type="file" id="imp-pdf" accept=".pdf,application/pdf" style="display:none" onchange="onPdfChange(event)">
+      <button id="imp-process-btn" class="btn btn-primary" onclick="processarPDF()" ${!impPdfB64 ? 'disabled style="opacity:.5"' : ''}>
+        🤖 Processar fatura com IA
+      </button>
+      <div id="imp-status"></div>
+
+      <div style="margin-top:16px">
+        <div class="imp-section-title">Itens da fatura</div>
+        <div id="imp-itens-list">${renderItensList()}</div>
+      </div>
+
+      <div style="margin-top:16px">
+        <div class="imp-section-title">Split do cartão conjunto</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:2px 0 10px;font-size:13px">
+          <span class="muted">Total da fatura:</span>
+          <span id="imp-split-total" style="font-weight:600">${fmt(splitTotal)}</span>
+        </div>
+        <div class="imp-row">
+          <label style="font-size:14px;min-width:80px;flex-shrink:0;display:flex;align-items:center">Matheus</label>
+          <input type="number" id="imp-split-matheus" value="${splitTotal}" placeholder="0" oninput="onSplitChange('matheus')">
+        </div>
+        <div class="imp-row">
+          <label style="font-size:14px;min-width:80px;flex-shrink:0;display:flex;align-items:center">Carla</label>
+          <input type="number" id="imp-split-carla" value="0" placeholder="0" oninput="onSplitChange('carla')">
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-pad" style="margin-bottom:12px">
+      <div class="imp-section-title">📋 Fixos do mês</div>
+      <div id="imp-fixos-list">${renderFixosList()}</div>
+      <button class="btn btn-secondary" style="margin-top:6px" onclick="addFixo()">+ Adicionar fixo</button>
+    </div>
+
+    <div class="card card-pad" style="margin-bottom:12px">
+      <div class="imp-section-title">➕ Gastos avulsos (fora da fatura)</div>
+      <div id="imp-avulsos-list">${renderAvulsosList()}</div>
+      <button class="btn btn-secondary" style="margin-top:6px" onclick="addAvulso()">+ Adicionar gasto avulso</button>
+    </div>
+
+    <div class="card card-pad" style="margin-bottom:12px">
+      <div class="imp-section-title">📊 Resumo do mês</div>
+      <div class="imp-preview" id="imp-preview">
+        <div class="muted" style="font-size:13px;text-align:center">Preencha os valores para ver o resumo</div>
+      </div>
+      <button id="imp-save-btn" class="btn btn-primary" style="background:#34c759" onclick="salvarMesSupabase()">
+        💾 Salvar no Supabase
+      </button>
+    </div>`;
+}
 
 // Service Worker
 if ('serviceWorker' in navigator) {
